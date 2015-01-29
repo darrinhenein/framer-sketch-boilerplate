@@ -5,7 +5,8 @@
 
 ###Installation
 
-1. Run `$ npm install`
+1. Install sketch-tool `$ curl -L https://raw.githubusercontent.com/cognitom/dotfiles/master/lib/sketchtool.sh | sudo sh`
+2. Run `$ npm install`
 
 ###Usage
 
