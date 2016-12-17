@@ -1,16 +1,18 @@
 var gulp = require('gulp');
 var coffee = require('gulp-coffee');
+var babel = require('gulp-babel');
 var gutil = require('gulp-util');
 var watch = require('gulp-watch');
 var sketch = require('gulp-sketch');
 var browserSync = require('browser-sync');
 
-gulp.task('build', ['copy', 'coffee', 'sketch']);
+gulp.task('build', ['copy', 'coffee', 'js', 'sketch']);
 gulp.task('default', ['build', 'watch']);
 
 gulp.task('watch', function(){
 
   gulp.watch('./src/*.coffee', ['coffee'])
+  gulp.watch('./src/*.js', ['js'])
   gulp.watch('./src/*.sketch', ['sketch'])
 
   browserSync({
@@ -28,6 +30,12 @@ gulp.task('watch', function(){
 gulp.task('coffee', function(){
   gulp.src('src/*.coffee')
     .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('build/'))
+})
+
+gulp.task('js', function(){
+  gulp.src('src/*.js')
+    .pipe(babel({ presets: ['es2015', 'stage-0'] }))
     .pipe(gulp.dest('build/'))
 })
 
